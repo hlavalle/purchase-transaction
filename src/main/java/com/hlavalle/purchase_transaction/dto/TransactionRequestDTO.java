@@ -1,4 +1,4 @@
-package com.hlavalle.purchase_transaction.controller;
+package com.hlavalle.purchase_transaction.dto;
 
 import com.hlavalle.purchase_transaction.entity.Transaction;
 import lombok.*;

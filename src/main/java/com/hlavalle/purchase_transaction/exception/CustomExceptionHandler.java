@@ -16,8 +16,18 @@ import java.util.Map;
 public class CustomExceptionHandler {
 
     @ExceptionHandler({
+            TransactionNotFoundException.class
+    })
+    public ResponseEntity<Map<String, List<String>>> handleTransactionNotFound(Exception e) {
+        log.error(e.getMessage());
+        return buildResponseEntity(Collections.singletonList(e.getMessage()),
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({
+            CurrencyConversionException.class,
             RuntimeException.class,
-            Exception.class
+            Exception.class,
     })
     public ResponseEntity<Map<String, List<String>>> handleInternalServerError(Exception e) {
         log.error(e.getMessage());

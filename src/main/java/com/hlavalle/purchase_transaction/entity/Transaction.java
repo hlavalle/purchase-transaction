@@ -1,10 +1,7 @@
 package com.hlavalle.purchase_transaction.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -13,6 +10,7 @@ import java.util.UUID;
 @Entity
 @Table(name="transaction")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,5 +28,14 @@ public class Transaction {
 
     @Column(name="amount")
     private BigDecimal amount;
+
+    @Transient
+    private BigDecimal exchangeRate;
+
+    @Transient
+    private String currency;
+
+    @Transient
+    private BigDecimal amountConverted;
 
 }
