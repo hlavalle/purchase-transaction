@@ -1,7 +1,11 @@
 package com.hlavalle.purchase_transaction.dto;
 
 import com.hlavalle.purchase_transaction.entity.Transaction;
-import lombok.*;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,6 +20,7 @@ public class TransactionRequestDTO {
 
     private String description;
     private OffsetDateTime timestamp;
+    @Positive(message = "The amount must be strictly positive.")
     private BigDecimal amount;
 
     public static Transaction toEntity(TransactionRequestDTO transactionDTO) {
