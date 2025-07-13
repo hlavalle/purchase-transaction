@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.hlavalle</groupId>
 	<artifactId>purchase-transaction</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>purchase-transaction</name>
 	<description>Service to store and currency conversion of purchase transactions</description>
 	<url/>

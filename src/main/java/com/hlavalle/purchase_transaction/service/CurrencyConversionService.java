@@ -6,5 +6,5 @@ import java.math.BigDecimal;
 
 public interface CurrencyConversionService {
 
-    CurrencyConversionResponseDTO convertCurrency(BigDecimal amount, String currency);
+    CurrencyConversionResponseDTO convertCurrency(BigDecimal amount, String currency, String gteDate, String lteDate);
 }

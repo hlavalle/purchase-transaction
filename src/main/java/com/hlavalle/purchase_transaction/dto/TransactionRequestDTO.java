@@ -15,6 +15,7 @@ import java.util.UUID;
 public class TransactionRequestDTO {
 
     private String description;
+    private OffsetDateTime timestamp;
     private BigDecimal amount;
 
     public static Transaction toEntity(TransactionRequestDTO transactionDTO) {
@@ -22,7 +23,7 @@ public class TransactionRequestDTO {
                 .id(UUID.randomUUID())
                 .description(transactionDTO.getDescription())
                 .amount(transactionDTO.getAmount().setScale(2, RoundingMode.HALF_EVEN))
-                .timestamp(OffsetDateTime.now())
+                .timestamp(transactionDTO.timestamp)
                 .build();
     }
 

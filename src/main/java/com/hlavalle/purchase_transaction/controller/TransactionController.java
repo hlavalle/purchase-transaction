@@ -1,5 +1,6 @@
 package com.hlavalle.purchase_transaction.controller;
 
+import com.hlavalle.purchase_transaction.dto.TransactionConvertedResponseDTO;
 import com.hlavalle.purchase_transaction.dto.TransactionRequestDTO;
 import com.hlavalle.purchase_transaction.dto.TransactionResponseDTO;
 import com.hlavalle.purchase_transaction.service.TransactionService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Log4j2
@@ -35,17 +38,26 @@ public class TransactionController {
         return new ResponseEntity<>(transactionResponseDTO, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "List all transactions")
+    @GetMapping("/api/v1/transaction")
+    public ResponseEntity<List<TransactionResponseDTO>> listTransactions() {
+
+        List<TransactionResponseDTO> transactionResponseDTOList =
+                TransactionResponseDTO.fromEntityList(transactionService.getAllTransactions());
+        return new ResponseEntity<>(transactionResponseDTOList, HttpStatus.OK);
+    }
+
     @Operation(summary = "Convert transaction currency")
     @GetMapping("/api/v1/transaction/currencyconversion/{transactionId}/{currency}")
-    public ResponseEntity<TransactionResponseDTO> getTransactionCurrencyConversion(
+    public ResponseEntity<TransactionConvertedResponseDTO> getTransactionCurrencyConversion(
             @PathVariable String transactionId,
             @PathVariable String currency
     ) {
 
-        TransactionResponseDTO transactionResponseDTO = TransactionResponseDTO.fromEntity(
+        TransactionConvertedResponseDTO transactionConvertedResponseDTO = TransactionConvertedResponseDTO.fromEntity(
                 transactionService.convertCurrency(transactionId, currency));
 
-        return new ResponseEntity<>(transactionResponseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(transactionConvertedResponseDTO, HttpStatus.OK);
     }
 
 }

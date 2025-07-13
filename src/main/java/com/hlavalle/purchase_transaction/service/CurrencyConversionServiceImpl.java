@@ -22,15 +22,23 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
     }
 
     @Override
-    public CurrencyConversionResponseDTO convertCurrency(BigDecimal amount, String currency) {
+    public CurrencyConversionResponseDTO convertCurrency(
+            BigDecimal amount, String currency, String gteDate, String lteDate) {
 
-        String url = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=currency:eq:Real,record_date:eq:2001-06-30&fields=record_date,effective_date,exchange_rate";
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append("https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country_currency_desc:eq:");
+        urlBuilder.append(currency);
+        urlBuilder.append(",effective_date:gte:");
+        urlBuilder.append(gteDate);
+        urlBuilder.append(",effective_date:lte:");
+        urlBuilder.append(lteDate);
+        urlBuilder.append("&sort=-effective_date");
 
         CurrencyConversionResponseDTO currencyConversionResponseDTO;
         ResponseEntity<CurrencyConversionResponseDTO> responseEntity;
         try {
             responseEntity = restClient.get()
-                    .uri(url)
+                    .uri(urlBuilder.toString())
                     .retrieve()
                     .toEntity(CurrencyConversionResponseDTO.class);
             currencyConversionResponseDTO = responseEntity.getBody();
