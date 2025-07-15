@@ -3,7 +3,7 @@
 The purchase-transaction application has two operations (endpoints):
 
 1. Accepts and stores a purchase transaction with a description, transaction date and purchase amount in United State dollars. When the transaction is stored it's assigned an unique identifier.
-2. Retrieves a purchase transaction in a specified country's currency.
+2. Retrieves a purchase transaction in a specified country's currency. The conversion is provided by the API https://fiscaldata.treasury.gov/datasets/treasury-reporting-rates-exchange/treasury-reporting-rates-of-exchange
 
 The OpenAPI documentation can be viewed on http://localhost:8080/swagger-ui/index.html when running the application locally.
 
@@ -39,6 +39,14 @@ After running the tests a JaCoCo report can be viewed opening the file target/si
 ```
 $ mvn spring-boot:run
 ```
+
+## H2 console
+
+There is no endpoint to list the transactions (I even implemented it but then removed it because I thought it was better to strictly follow the requirement).
+
+Persisted purchase transactions can be viewed through the H2 console at http://localhost:8080/h2-console
+
+![img_3.png](img_3.png)
 
 ## Recommendations for future improvements
 
