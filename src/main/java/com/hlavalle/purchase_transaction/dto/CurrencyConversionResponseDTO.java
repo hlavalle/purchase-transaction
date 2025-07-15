@@ -17,9 +17,6 @@ public class CurrencyConversionResponseDTO {
     @Getter
     @Setter
     public static class Data {
-        @JsonProperty("record_date")
-        private String recordDate;
-
         @JsonProperty("effective_date")
         private String effectiveDate;
 
