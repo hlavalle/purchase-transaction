@@ -134,6 +134,34 @@ public class TransactionControllerTests {
     }
 
     @Test
+    @DisplayName("POST /api/v1/transaction - Bad request invalid timestamp")
+    void testInvalidTimestampOnCreateTransaction() throws Exception {
+
+        String payload = """
+                {
+                  "description": "Transaction description",
+                  "amount": 100.89,
+                  "timestamp": "2001-07-10"
+                }
+                """;
+
+        String exceptedResponse = """
+                {
+                  "errors": [
+                    "JSON parse error: Cannot deserialize value of type `java.time.OffsetDateTime` from \
+                String \\"2001-07-10\\": Failed to deserialize java.time.OffsetDateTime: \
+                (java.time.format.DateTimeParseException) Text '2001-07-10' could not be parsed at index 10"
+                  ]
+                }""";
+
+        mockMvc.perform(post("/api/v1/transaction")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(exceptedResponse));
+    }
+
+    @Test
     @DisplayName("GET /api/v1/transaction/currencyconversion/{transactionId}/{currency} - Success")
     void testGetTransactionConversion() throws Exception {
 

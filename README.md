@@ -32,7 +32,7 @@ $ mvn test
 
 After running the tests a JaCoCo report can be viewed opening the file target/site/jacoco/index.html on a web browser.
 
-![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 
 ## Run
 
