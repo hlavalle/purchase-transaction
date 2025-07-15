@@ -5,6 +5,7 @@ import com.hlavalle.purchase_transaction.entity.Transaction;
 import com.hlavalle.purchase_transaction.repository.TransactionRepository;
 import com.hlavalle.purchase_transaction.service.CurrencyConversionService;
 import com.hlavalle.purchase_transaction.service.TransactionServiceImpl;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,12 +34,13 @@ public class TransactionServiceTests {
     private TransactionRepository transactionRepository;
 
     @InjectMocks
-    private TransactionServiceImpl transactionServiceImpl;
+    private TransactionServiceImpl transactionService;
 
     @Mock
     private CurrencyConversionService currencyConversionService;
 
     @Test
+    @DisplayName("Currency conversion service - Success")
     void testConvertTransaction() {
 
         UUID id = UUID.fromString("4cdc356a-cba2-40af-8c2a-18ea99c57bf4");
@@ -63,7 +65,7 @@ public class TransactionServiceTests {
         when(currencyConversionService.convertCurrency(any(),any(),any(),any())).
                 thenReturn(currencyConversionResponseDTO);
 
-        Transaction convertedTransaction = transactionServiceImpl.convertCurrency(
+        Transaction convertedTransaction = transactionService.convertCurrency(
                 "4cdc356a-cba2-40af-8c2a-18ea99c57bf4", "United Kingdom-Pound");
 
         assertNotNull(convertedTransaction);
