@@ -2,6 +2,7 @@ package com.hlavalle.purchase_transaction.dto;
 
 import com.hlavalle.purchase_transaction.entity.Transaction;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class TransactionRequestDTO {
 
+    @Size(max = 50, message = "Description size must not exceed 50 characters.")
+    @Size(min = 1, message = "Description is mandatory.")
     private String description;
+
     private OffsetDateTime timestamp;
+
     @Positive(message = "The amount must be strictly positive.")
     private BigDecimal amount;
 

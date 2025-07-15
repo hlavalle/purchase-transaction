@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,7 +31,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler({
             MethodArgumentNotValidException.class
     })
-    public ResponseEntity<Map<String, List<String>>> handleBadRequest(MethodArgumentNotValidException e) {
+    public ResponseEntity<Map<String, List<String>>> handleArgumentNotValid(MethodArgumentNotValidException e) {
 
         List<String> errors = e.getBindingResult()
                 .getFieldErrors()
@@ -42,13 +43,15 @@ public class CustomExceptionHandler {
         return buildResponseEntity(errors,HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ProblemDetail handleInvalidInputException(MethodArgumentNotValidException e, WebRequest request) {
-//        ProblemDetail problemDetail
-//                = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
-//        problemDetail.setInstance(URI.create("discount"));
-//        return problemDetail;
-//    }
+    @ExceptionHandler({
+            HttpMessageNotReadableException.class
+    })
+    public ResponseEntity<Map<String, List<String>>> handleHttpMessageNotReadableException(
+            HttpMessageNotReadableException e) {
+        log.error(e.getMessage());
+        return buildResponseEntity(Collections.singletonList(e.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler({
             CurrencyConversionException.class,
