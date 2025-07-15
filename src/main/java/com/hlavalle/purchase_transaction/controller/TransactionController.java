@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @Log4j2
 public class TransactionController {
@@ -36,15 +34,6 @@ public class TransactionController {
                             TransactionRequestDTO.toEntity(transactionRequestDTO)));
 
         return new ResponseEntity<>(transactionResponseDTO, HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "List all transactions")
-    @GetMapping("/api/v1/transaction")
-    public ResponseEntity<List<TransactionResponseDTO>> listTransactions() {
-
-        List<TransactionResponseDTO> transactionResponseDTOList =
-                TransactionResponseDTO.fromEntityList(transactionService.getAllTransactions());
-        return new ResponseEntity<>(transactionResponseDTOList, HttpStatus.OK);
     }
 
     @Operation(summary = "Convert transaction currency")

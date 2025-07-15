@@ -7,14 +7,12 @@ import com.hlavalle.purchase_transaction.exception.TransactionNotFoundException;
 import com.hlavalle.purchase_transaction.repository.TransactionRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -58,11 +56,6 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setCurrency(currency);
         transaction.setAmountConverted(amountConverted);
         return transaction;
-    }
-
-    @Override
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll(Sort.by("timestamp"));
     }
 
 }

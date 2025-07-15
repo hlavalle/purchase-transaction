@@ -30,6 +30,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+		<commons-lang3.version>3.18.0</commons-lang3.version>
     </properties>
 	<dependencies>
 		<dependency>
@@ -57,7 +58,7 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-maven-plugin</artifactId>
-			<version>10.21.0</version>
+			<version>11.10.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -170,7 +171,7 @@
 				<version>0.8.12</version>
 				<configuration>
 					<excludes>
-						<exclude>com/hlavalle/purchase_transaction/PurchaseTransactionApplication.main</exclude>
+						<exclude>com/hlavalle/purchase_transaction/PurchaseTransactionApplication.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
